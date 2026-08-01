@@ -8,7 +8,7 @@
     <artifactId>chat-application</artifactId>
     <version>1.0.0</version>
     <name>Antigravity Enterprise Chat Application</name>
-    <description>Enterprise Real-Time Java Socket & Database Chat System</description>
+    <description>Enterprise Real-Time Java Socket &amp; Database Chat System</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
