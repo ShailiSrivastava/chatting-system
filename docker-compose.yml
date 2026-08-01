@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  chat-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: antigravity-chat-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./server_storage:/app/server_storage
+      - ./chatdb.mv.db:/app/chatdb.mv.db
+    restart: unless-stopped
+    environment:
+      - TZ=UTC

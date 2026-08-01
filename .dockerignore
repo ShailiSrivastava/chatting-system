@@ -1,0 +1,9 @@
+target/
+.git/
+.gitignore
+.idea/
+.vscode/
+*.db
+server_storage/
+client_downloads/
+*.log

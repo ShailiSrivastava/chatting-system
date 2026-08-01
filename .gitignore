@@ -1,3 +1,6 @@
+# Maven Output
+target/
+
 # Compilation Output
 bin/
 *.class
@@ -11,7 +14,7 @@ chatdb.lock.db
 server_storage/
 client_downloads/
 
-# IDE files
+# IDE & Editor files
 .idea/
 .classpath
 .project

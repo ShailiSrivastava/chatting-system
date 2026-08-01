@@ -1,6 +1,9 @@
 @echo off
 echo Running Antigravity Chat Unit Tests...
-if not exist bin (
-    call compile.bat
+
+where mvn >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    mvn test
+) else (
+    powershell -ExecutionPolicy Bypass -File .\run-tests.ps1
 )
-"C:\Users\shail\.vscode\extensions\redhat.java-1.55.0-win32-x64\jre\21.0.11-win32-x86_64\bin\java.exe" -cp "bin;lib\h2.jar" com.chat.test.SimpleUnitTestRunner

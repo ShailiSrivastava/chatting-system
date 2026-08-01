@@ -19,7 +19,6 @@ import java.util.*;
 
 public class WebChatServer {
 
-    private final int webPort = 8080;
     private HttpServer httpServer;
 
     private final AuthService authService = new AuthService();
@@ -30,9 +29,20 @@ public class WebChatServer {
     private static final Map<Long, Map<String, Integer>> messageReactions = new HashMap<>();
     private static final List<String> systemActivityLogs = new ArrayList<>();
 
+    private int getEffectivePort() {
+        String envPort = System.getenv("PORT");
+        if (envPort != null && !envPort.trim().isEmpty()) {
+            try {
+                return Integer.parseInt(envPort.trim());
+            } catch (NumberFormatException ignored) {}
+        }
+        return 8080;
+    }
+
     public void start() {
+        int webPort = getEffectivePort();
         try {
-            httpServer = HttpServer.create(new InetSocketAddress(webPort), 0);
+            httpServer = HttpServer.create(new InetSocketAddress("0.0.0.0", webPort), 0);
 
             httpServer.createContext("/", new StaticWebHandler());
             httpServer.createContext("/api/register", new RegisterHandler());
@@ -47,11 +57,11 @@ public class WebChatServer {
             httpServer.setExecutor(java.util.concurrent.Executors.newCachedThreadPool());
             httpServer.start();
 
-            logActivity("WebChatServer started on http://localhost:8080");
+            logActivity("WebChatServer started on http://0.0.0.0:" + webPort);
 
             LoggerUtil.info("==================================================");
             LoggerUtil.info("   EXTRAORDINARY INDUSTRIAL PLATFORM ACTIVE       ");
-            LoggerUtil.info("   Web Link: http://localhost:8080/               ");
+            LoggerUtil.info("   Web Listening: http://0.0.0.0:" + webPort + "/   ");
             LoggerUtil.info("==================================================");
         } catch (IOException e) {
             LoggerUtil.error("Failed to start WebChatServer on port " + webPort, e);

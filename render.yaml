@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: antigravity-chat-server
+    env: docker
+    dockerfilePath: ./Dockerfile
+    region: singapore
+    plan: free
+    healthCheckPath: /api/metrics
+    envVars:
+      - key: PORT
+        value: 10000

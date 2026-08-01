@@ -10,7 +10,14 @@ public class ServerConfig {
     private int maxThreadPoolSize;
 
     private ServerConfig() {
-        this.port = Constants.DEFAULT_SERVER_PORT;
+        int defaultTcpPort = Constants.DEFAULT_SERVER_PORT;
+        String envTcp = System.getenv("TCP_PORT");
+        if (envTcp != null && !envTcp.trim().isEmpty()) {
+            try {
+                defaultTcpPort = Integer.parseInt(envTcp.trim());
+            } catch (NumberFormatException ignored) {}
+        }
+        this.port = defaultTcpPort;
         this.storageDirectory = Constants.SERVER_STORAGE_DIR;
         this.maxThreadPoolSize = 50;
     }

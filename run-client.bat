@@ -1,6 +1,15 @@
 @echo off
 echo Starting Antigravity Core Java Chat Client...
-if not exist bin (
+if not exist target\chat-client.jar (
     call compile.bat
 )
-"C:\Users\shail\.vscode\extensions\redhat.java-1.55.0-win32-x64\jre\21.0.11-win32-x86_64\bin\java.exe" -cp "bin;lib\h2.jar" com.chat.client.ClientMain
+
+set JAVA_CMD=java
+where java >nul 2>nul
+if %ERRORLEVEL% NEQ 0 (
+    if exist "C:\Users\shail\.vscode\extensions\redhat.java-1.55.0-win32-x64\jre\21.0.11-win32-x86_64\bin\java.exe" (
+        set JAVA_CMD="C:\Users\shail\.vscode\extensions\redhat.java-1.55.0-win32-x64\jre\21.0.11-win32-x86_64\bin\java.exe"
+    )
+)
+
+%JAVA_CMD% -jar target\chat-client.jar
