@@ -6,7 +6,7 @@ The platform features a **Client-Server Architecture** operating over raw **TCP 
 
 ---
 
-## 🌟 Key Highlights & Placement-Ready Showcase Features
+## 🌟 Key Highlights 
 
 - ⚡ **Zero-Framework Core Java Backend**: Implemented using pure SE standard libraries (`java.net`, `java.io`, `java.util.concurrent`, `java.sql`, `javax.swing`, `javax.crypto`, `com.sun.net.httpserver`).
 - 🔄 **Dual Engine Gateway Architecture**: Synchronizes raw **TCP Sockets** (Port `8888`) and **HTTP Web Gateway** (Port `8080`) to the exact same core Java services.
