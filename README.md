@@ -174,16 +174,3 @@ Open a second terminal window to start native desktop client instances:
 
 ---
 
-## 💻 Technical Interview Deep-Dive Questions
-
-### Q1: How does the application handle concurrent socket connections without blocking?
-**Answer**: `ChatServer` uses an `ExecutorService` thread pool with worker threads. When `serverSocket.accept()` receives a connection, it hands off the socket to a `ClientHandler` runnable task. Each handler runs a non-blocking reading loop for serialized `Packet` objects over `ObjectInputStream`. Active online connections are registered in `ClientManager` using thread-safe `ConcurrentHashMap`.
-
-### Q2: How are user passwords secured?
-**Answer**: Passwords are never stored as plain text. `PasswordHasher` generates a unique 16-byte random salt using `SecureRandom`. The password and salt are hashed with SHA-256 and stretched over 1000 iterations to protect against rainbow table and brute-force attacks.
-
-### Q3: How is SQL Injection prevented?
-**Answer**: All database access goes through the DAO layer (`UserDAOImpl`, `MessageDAOImpl`, etc.), which exclusively uses JDBC `PreparedStatement` with parameterized placeholders (`?`). User inputs are validated and sanitized before binding.
-
-### Q4: How does offline message queueing work?
-**Answer**: When a message is sent to an offline user, `MessageService` stores the message in the database with status `SENT`. When the recipient logs in, `ClientHandler` queries pending offline messages and auto-delivers them over the socket stream, updating the status to `DELIVERED`.
