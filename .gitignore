@@ -1,0 +1,20 @@
+# Compilation Output
+bin/
+*.class
+
+# Database Files
+chatdb.mv.db
+chatdb.trace.db
+chatdb.lock.db
+
+# Storage
+server_storage/
+client_downloads/
+
+# IDE files
+.idea/
+.classpath
+.project
+.settings/
+*.iml
+.vscode/
